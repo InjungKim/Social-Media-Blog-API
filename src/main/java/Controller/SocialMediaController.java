@@ -44,7 +44,7 @@ public class SocialMediaController {
     }
 
     /**
-     * This is an example handler for an example endpoint.
+     * This is a Handler for processing new user registrations
      * @param context The Javalin Context object manages information about both the HTTP request and response.
      */
     private void postAccountHandler(Context ctx) throws JsonProcessingException{
@@ -75,7 +75,7 @@ public class SocialMediaController {
     }
 
     /**
-     * This is an example handler for an example endpoint.
+     * This is a Handler for processing user Logins
      * @param context The Javalin Context object manages information about both the HTTP request and response.
      */
     private void postLoginHandler(Context ctx) throws JsonProcessingException{
@@ -93,6 +93,10 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * This is a Handler for the creation of new messages
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void postMessageHandler(Context ctx) throws JsonProcessingException{
         //requirement 3
         //read the ctx and get Message
@@ -120,11 +124,19 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * This is a Handler for retrieving all messages
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void getAllMessagesHandler(Context ctx){
         List<Message> messages = messageService.getAllMessages();
         ctx.json(messages);
     }
     
+    /**
+     * This is a Handler for retrieving a message by its ID
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void getMessageByIdHandler(Context ctx){
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
         Message message = messageService.getMessageById(message_id);
@@ -133,6 +145,10 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * This is a Handler for deleting a message by its ID
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void deleteMessageByIdYHandler(Context ctx){
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
         Message message = messageService.deleteMessageById(message_id);
@@ -141,6 +157,10 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * This is a Handler for updating a message text identified by its ID
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void updateMessageByIdHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         Message msg = mapper.readValue(ctx.body(), Message.class);
@@ -157,6 +177,10 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * This is a Handler for retrieving all messages written by a particular user
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void getAllMessagesByUserHandler(Context ctx){
         int account_id = Integer.parseInt(ctx.pathParam("account_id"));
         List<Message> messages = messageService.getAllMessagesByUserHandler(account_id);
